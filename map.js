@@ -10,7 +10,8 @@ var polyline;
 var currentPosition;
 //assign defalut position
 var currentLatitude = 37.783478;
-var currentLongitude = -122.409093;
+var currentLongitude = -122.409093
+var path;
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -27,6 +28,8 @@ var setupMap = function(){
 
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
     console.log(directionsDisplay.getDirections());
+    path = directionsDisplay.getDirections().routes[0].overview_path;
+    console.log('path: '+ path);
     computeTotalDistance(directionsDisplay.getDirections());
   });
 };
@@ -127,7 +130,7 @@ function plotElevation(results, status) {
 
 function handleNoGeolocation() {
   var content = 'Error: The Geolocation service failed.';
-  
+
   var options = {
     map: map,
     position: new google.maps.LatLng(60, 105),
@@ -148,6 +151,8 @@ function calcRoute() {
   };
   directionsService.route(request, function(response, status) {
     console.log(response);
+    // path = response.routes[0].overview_path;
+    // console.log('default path: ' + path);
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
     }
@@ -165,3 +170,8 @@ function computeTotalDistance(result) {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+//after getting jquery
+// $('.submit_path').on('click', function(){
+//   //send path array to the database
+// });
