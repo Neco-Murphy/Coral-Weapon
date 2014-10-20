@@ -10,7 +10,7 @@ var polyline;
 var currentPosition;
 //assign defalut position
 var currentLatitude = 37.783478;
-var currentLongitude = -122.409093
+var currentLongitude = -122.409093;
 var path;
 
 // Load the Visualization API and the columnchart package.
