@@ -11,6 +11,7 @@ var currentPosition;
 //assign defalut position
 var currentLatitude = 37.783478;
 var currentLongitude = -122.409093;
+var content;
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -46,19 +47,20 @@ var initialize = function() {
   map = new google.maps.Map(document.getElementById('map-canvas'));
 
   if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function(position){
       currentLatitude = position.coords.latitude;
       currentLongitude = position.coords.longitude;
       setupMap();
     }, function() {
-      //if getting geolocation info failed.
-      var content = 'Error: The Geolocation service failed.';
+      //if getting geolocation is not allowed.
+      content = 'Error: The Geolocation service failed.';
       setupMap(content);
     });
 
   }else{
     // Browser doesn't support Geolocation
-    setupMap();
+    content = 'Error: The browser does not support geolocation.';
+    setupMap(content);
   }
 };
 
