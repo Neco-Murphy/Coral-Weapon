@@ -13,6 +13,7 @@ var currentLatitude = 37.783478;
 var currentLongitude = -122.409093;
 var path;
 var content;
+var distance;
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -40,12 +41,18 @@ var setupMap = function(content){
 
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
     var res = directionsDisplay.getDirections();
-    computeTotalDistance(res);
+    computeTotalDistance(res, culcDifficulty);
     drawChart(res);
     path = res.routes[0].overview_path;
   });
   elevator = new google.maps.ElevationService();
   calcRoute();
+};
+
+var culcDifficulty = function(distance){
+
+  var difficulty = distance;
+  $('.difficulty').html('level ' + difficulty);
 };
 
 var initialize = function() {
@@ -161,14 +168,15 @@ function drawChart(response) {
   elevator.getElevationAlongPath(pathRequest, plotElevation);
 }
 
-var computeTotalDistance = function(result) {
-  var total = 0;
+var computeTotalDistance = function(result, callback) {
+  var distance = 0;
   var myroute = result.routes[0];
   for (var i = 0; i < myroute.legs.length; i++) {
-    total += myroute.legs[i].distance.value;
+    distance += myroute.legs[i].distance.value;
   }
-  total = total / 1000.0;
-  document.getElementById('total').innerHTML = total + ' km';
+  distance = distance / 1000.0;
+  $('#total').html(distance + ' km');
+  callback(distance);
 };
 
 google.maps.event.addDomListener(window, 'load', initialize);
