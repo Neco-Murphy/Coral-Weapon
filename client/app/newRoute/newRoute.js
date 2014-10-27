@@ -5,16 +5,19 @@ angular.module('shortly.newRoute', [])
 
   $scope.addRunningRoute = function () {
     $scope.loading = true;
-    $scope.runningRoute.runningRoute = res;
-    $scope.runningRoute.rating = 0;
-    RunningRoutes.addRunningRoute($scope.runningRoute)
-      .then(function () {
-        $scope.loading = false;
-        $location.path('/savedRoutes');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    $scope.runningRoute.runningRoute = JSON.stringify(res);
+    $scope.runningRoute.rating = $('.difficulty').text();
+    fb.push($scope.runningRoute);
+    $scope.loading = false;
+    $location.path('/savedRoutes');
+  //   RunningRoutes.addRunningRoute($scope.runningRoute)
+  //     .then(function () {
+  //       $scope.loading = false;
+  //       $location.path('/savedRoutes');
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
   };
 
   $scope.generateRoute = function(){

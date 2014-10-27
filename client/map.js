@@ -12,6 +12,7 @@ var currentLongitude = -122.409093;
 var path;
 var content;
 var res;
+var fb = new Firebase('https://coral-weapon.firebaseio.com/');
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});

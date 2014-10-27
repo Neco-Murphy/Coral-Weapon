@@ -2,7 +2,10 @@
 
 </div>
 <div class="runningRoutes">
-    <shortened-running-route running-route="runningRoute" class="fx-zoom-up fx-speed-300 fx-easing-back" ng-repeat="runningRoute in data.runningRoutes | filter:search | orderBy:'created_at'">
-    </shortened-running-route>
+		<ul class="routeList">
+			<li ng-repeat="runningRoute in data.runningRoutes">
+				<a ng-click="triggerMap(runningRoute.runningRoute)" class="savedRoute">{{runningRoute.name}}</a>
+			</li>
+		</ul>
   <div ui-view></div>
 </div>
